@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:51:48 by pducloux          #+#    #+#             */
-/*   Updated: 2023/05/24 14:53:17 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:34:41 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc != 4)
+	if (argc != 5)
 		return (1);
 	return (0);
 }
