@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 14:34:55 by pducloux          #+#    #+#             */
-/*   Updated: 2023/05/24 14:51:16 by pducloux         ###   ########.fr       */
+/*   Created: 2023/05/24 14:51:48 by pducloux          #+#    #+#             */
+/*   Updated: 2023/05/24 14:53:17 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include "defines.h"
-
-t_philo_data	*philo(void);
-
-#endif
+int	main(int argc, char **argv)
+{
+	if (argc != 4)
+		return (1);
+	return (0);
+}

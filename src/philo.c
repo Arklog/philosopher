@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 14:34:55 by pducloux          #+#    #+#             */
-/*   Updated: 2023/05/24 14:51:16 by pducloux         ###   ########.fr       */
+/*   Created: 2023/05/24 14:50:15 by pducloux          #+#    #+#             */
+/*   Updated: 2023/05/24 14:51:05 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include "defines.h"
+t_philo_data	*philo(void)
+{
+	static t_philo_data	_p = {0};
 
-t_philo_data	*philo(void);
-
-#endif
+	return (&_p);
+}
