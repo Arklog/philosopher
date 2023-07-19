@@ -1,38 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   output.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 14:34:55 by pducloux          #+#    #+#             */
-/*   Updated: 2023/07/19 02:43:09 by pducloux         ###   ########.fr       */
+/*   Created: 2023/07/19 00:34:53 by pducloux          #+#    #+#             */
+/*   Updated: 2023/07/19 02:12:25 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef OUTPUT_H
+# define OUTPUT_H
 
+# include <pthread.h>
+# include <sys/time.h>
 # include "defines.h"
+# include "libft.h"
 
 /**
- * Get philo global datas
-*/
-t_philo_data	*philo(void);
-
-/**
- * Initialize philo
+ * Thread sage putstrfd
  * 
- * @param argc
- * @param argv
+ * @param msg	the message to write
+ * @param fd	the file descriptor to write in
 */
-void			philo_init(int argc, char **argv);
+void	ft_putstrfd_mt(char *msg, int fd);
 
-/**
- * Exit philo whith given code and display message
-*/
-void			philo_exit(int code, char *msg);
+void	is_sleeping(t_thread_data *d);
 
-void			algo(t_thread_data *td);
+void	is_eating(t_thread_data *d);
+
+void	is_thinking(t_thread_data *d);
+
+void	is_dead(t_thread_data *d);
+
+void	is_taking_fork(t_thread_data *d);
 
 #endif

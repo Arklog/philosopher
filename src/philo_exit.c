@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 14:34:55 by pducloux          #+#    #+#             */
-/*   Updated: 2023/07/19 02:43:09 by pducloux         ###   ########.fr       */
+/*   Created: 2023/07/07 02:34:37 by pducloux          #+#    #+#             */
+/*   Updated: 2023/07/19 02:28:14 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
+#include "libft.h"
 
-# include "defines.h"
+static void	free_all(void)
+{
+	t_philo_data	*p;
 
-/**
- * Get philo global datas
-*/
-t_philo_data	*philo(void);
+	p = philo();
+	while (p->iforks >= 0)
+		pthread_mutex_destroy(p->forks + (p->iforks--));
+	if (p->forks)
+		free(p->forks);
+	if (p->philos)
+		free(p->philos);
+}
 
-/**
- * Initialize philo
- * 
- * @param argc
- * @param argv
-*/
-void			philo_init(int argc, char **argv);
-
-/**
- * Exit philo whith given code and display message
-*/
-void			philo_exit(int code, char *msg);
-
-void			algo(t_thread_data *td);
-
-#endif
+void	philo_exit(int code, char *msg)
+{
+	if (msg)
+		ft_putstrfd(msg, (int)(code > 0) + 1);
+	exit(code);
+}
