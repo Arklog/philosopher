@@ -27,6 +27,18 @@ static void	philo_init_mutex(t_philo_data *p)
 	}
 }
 
+static void philo_init_one(t_philo_data *pd, t_thread_data *d, unsigned int i)
+{
+	ft_memset(d, 0, sizeof(t_thread_data));
+	d->tid = i;
+	d->philo_data = pd;
+	d->fork_l = pd->forks + i;
+	if (i == pd->nphilo - 1)
+		d->fork_r = pd->forks;
+	else
+		d->fork_r = pd->forks + i + 1;
+}
+
 static void	philo_init_philo(t_philo_data *p)
 {
 	unsigned int	i;
@@ -37,7 +49,14 @@ static void	philo_init_philo(t_philo_data *p)
 	ft_memset(p->philos, 0, sizeof(t_thread_data) * p->nphilo);
 	i = 0;
 	while (i < p->nphilo)
+	{
 		p->philos[i].tid = i;
+		philo_init_one(p, p->philos + i, i);
+		++i;
+	}
+	p->threads = malloc(sizeof(pthread_t) * p->nphilo);
+	if (!p->threads)
+		philo_exit(1, "Malloc error\n");
 }
 
 void	philo_init(int argc, char **argv)
@@ -63,4 +82,5 @@ void	philo_init(int argc, char **argv)
 	if (endptr != argv[4] + ft_strlen(argv[4]))
 		philo_exit(1, "Wrong argument\n");
 	philo_init_mutex(p);
+	philo_init_philo(p);
 }

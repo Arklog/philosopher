@@ -14,6 +14,10 @@
 # define PHILO_H
 
 # include "defines.h"
+# include "output.h"
+# include "do.h"
+# include <unistd.h>
+# include <sys/time.h>
 
 /**
  * Get philo global datas
@@ -33,6 +37,31 @@ void			philo_init(int argc, char **argv);
 */
 void			philo_exit(int code, char *msg);
 
-void			algo(t_thread_data *td);
+/**
+ * The thread function
+ * @param td
+ */
+void			*algo(void *td);
+
+/**
+ * Check given philosopher died
+ * @param d
+ * @return
+ */
+int				test_is_dead(t_thread_data *d);
+
+/**
+ * Loop checking if any thread died
+ *
+ * @param pd
+ */
+void			main_loop(t_philo_data *pd);
+
+/**
+ * Start all threads
+ *
+ * @param pd
+ */
+void			philo_start(t_philo_data *pd);
 
 #endif

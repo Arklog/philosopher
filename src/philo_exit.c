@@ -18,16 +18,19 @@ static void	free_all(void)
 	t_philo_data	*p;
 
 	p = philo();
-	while (p->iforks >= 0)
-		pthread_mutex_destroy(p->forks + (p->iforks--));
+	while (p->iforks > 0)
+		pthread_mutex_destroy(p->forks + (--p->iforks));
 	if (p->forks)
 		free(p->forks);
 	if (p->philos)
 		free(p->philos);
+	if (p->threads)
+		free(p->threads);
 }
 
 void	philo_exit(int code, char *msg)
 {
+	free_all();
 	if (msg)
 		ft_putstrfd(msg, (int)(code > 0) + 1);
 	exit(code);

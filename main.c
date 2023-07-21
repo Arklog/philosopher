@@ -15,6 +15,14 @@
 
 int	main(int argc, char **argv)
 {
+	size_t	i;
+	void	*r;
+
 	philo_init(argc, argv);
+	philo_start(philo());
+	main_loop(philo());
+	i = 0;
+	while (i < philo()->nphilo)
+		pthread_join(philo()->threads[i++], &r);
 	philo_exit(0, NULL);
 }

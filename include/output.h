@@ -24,16 +24,18 @@
  * @param msg	the message to write
  * @param fd	the file descriptor to write in
 */
-void	ft_putstrfd_mt(char *msg, int fd);
+void		ft_putstrfd_mt(char *msg, int fd);
 
-void	is_sleeping(t_thread_data *d);
+void		is_sleeping(t_thread_data *d);
 
-void	is_eating(t_thread_data *d);
+void		is_eating(t_thread_data *d);
 
-void	is_thinking(t_thread_data *d);
+void		is_thinking(t_thread_data *d);
 
-void	is_dead(t_thread_data *d);
+void		is_dead(t_thread_data *d);
 
-void	is_taking_fork(t_thread_data *d);
+void		is_taking_fork(t_thread_data *d);
+
+u_int64_t	get_timestamp(void);
 
 #endif

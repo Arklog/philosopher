@@ -15,11 +15,9 @@
 void	ft_putstrfd_mt(char *msg, int fd)
 {
 	static pthread_mutex_t	m = PTHREAD_MUTEX_INITIALIZER;
-	struct timeval			t;
 
 	pthread_mutex_lock(&m);
-	gettimeofday(&t, 0);
-	ft_putstrfd(ft_itoa(t.tv_usec), fd);
+	ft_putstrfd(ft_itoa((int64_t)get_timestamp()), fd);
 	write(fd, " ", 1);
 	ft_putstrfd(msg, fd);
 	pthread_mutex_unlock(&m);

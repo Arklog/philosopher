@@ -12,6 +12,18 @@
 
 #include "philo.h"
 
-void	algo(t_thread_data *td)
+void	*algo(void *td)
 {
+	t_thread_data	*d;
+
+	d = td;
+	while (!test_is_dead(d))
+	{
+		do_eat(d);
+		do_sleep(d);
+		do_think(d);
+		if (get_timestamp() - d->last_eat > d->philo_data->ttd)
+			do_die(d);
+	}
+	return (NULL);
 }
