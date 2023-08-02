@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:34:55 by pducloux          #+#    #+#             */
-/*   Updated: 2023/07/19 02:43:09 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:48:12 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ void			philo_exit(int code, char *msg);
 void			*algo(void *td);
 
 /**
- * Check given philosopher died
+ * Check if given philosopher died
+ * 
  * @param d
+ * 
  * @return
  */
-int				test_is_dead(t_thread_data *d);
+bool				test_is_dead(t_philosopher *d);
 
 /**
  * Loop checking if any thread died
@@ -63,5 +65,22 @@ void			main_loop(t_philo_data *pd);
  * @param pd
  */
 void			philo_start(t_philo_data *pd);
+
+/**
+ * Check if philosopher is finished (eg: one philosopher died or all ate enough)
+ * 
+ * @param pd 
+ * 
+ * @return true		if philosopher is finished
+ * @return false	if philosopher is not finished
+ */
+bool			philo_is_finished(t_philo_data *pd);
+
+/**
+ * Set philosopher as finished
+ * 
+ * @param pd 
+ */
+void			philo_set_finished(t_philo_data *pd);
 
 #endif

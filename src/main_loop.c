@@ -1,20 +1,32 @@
 #include "philo.h"
 
-void	main_loop(t_philo_data *d)
+static bool	all_ate(t_philo_data *d)
 {
 	unsigned int	i;
+	unsigned int	sum;
 
-	while (!d->finished)
+	i = 0;
+	sum = 0;
+	while (i < d->nphilo)
 	{
-		i = 0;
-		while (i < d->nthreads)
-		{
-			if (test_is_dead(d->philos + i))
-			{
-				d->finished = 1;
-			}
-			i++;
-		}
-		usleep(5);
+		pthread_mutex_lock(&(d->philos[i].neat_mutex.mutex));
+		sum += d->philos[i].neat;
+		pthread_mutex_unlock(&(d->philos[i].neat_mutex.mutex));
+		++i;
+	}
+	return (!sum);
+}
+
+void	main_loop(t_philo_data *d)
+{
+	if (d->neat < 0)
+	{
+		while (!philo_is_finished(d))
+			usleep(5);
+	}
+	else
+	{
+		while (!philo_is_finished(d) || !all_ate(d))
+			usleep(5);
 	}
 }

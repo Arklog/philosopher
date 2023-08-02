@@ -1,6 +1,6 @@
 #include "philo.h"
 
-int	test_is_dead(t_thread_data *d)
+int	test_is_dead(t_philosopher *d)
 {
 	pthread_mutex_lock(&d->mutex_is_dead);
 	if (d->is_dead)

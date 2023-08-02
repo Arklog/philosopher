@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 02:43:32 by pducloux          #+#    #+#             */
-/*   Updated: 2023/07/19 02:43:50 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:26:20 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*algo(void *td)
 {
-	t_thread_data	*d;
+	t_philosopher	*d;
 
 	d = td;
 	while (!test_is_dead(d))

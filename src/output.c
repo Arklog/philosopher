@@ -6,13 +6,13 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 02:03:50 by pducloux          #+#    #+#             */
-/*   Updated: 2023/07/19 02:14:59 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/08/02 14:26:20 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "output.h"
 
-void	is_sleeping(t_thread_data *p)
+void	is_sleeping(t_philosopher *p)
 {
 	char	*tmp;
 
@@ -21,7 +21,7 @@ void	is_sleeping(t_thread_data *p)
 	free(tmp);
 }
 
-void	is_eating(t_thread_data *p)
+void	is_eating(t_philosopher *p)
 {
 	char	*tmp;
 
@@ -30,7 +30,7 @@ void	is_eating(t_thread_data *p)
 	free(tmp);
 }
 
-void	is_thinking(t_thread_data *p)
+void	is_thinking(t_philosopher *p)
 {
 	char	*tmp;
 
@@ -39,7 +39,7 @@ void	is_thinking(t_thread_data *p)
 	free(tmp);
 }
 
-void	is_dead(t_thread_data *p)
+void	is_dead(t_philosopher *p)
 {
 	char	*tmp;
 
@@ -48,7 +48,7 @@ void	is_dead(t_thread_data *p)
 	free(tmp);
 }
 
-void	is_taking_fork(t_thread_data *p)
+void	is_taking_fork(t_philosopher *p)
 {
 	char	*tmp;
 

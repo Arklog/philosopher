@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 02:23:18 by pducloux          #+#    #+#             */
-/*   Updated: 2023/07/19 02:26:22 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/08/02 15:28:51 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 #include "ft_stdlib.h"
 #include "ft_string.h"
 
+/**
+ * @brief initialize the global data's mutexes (forks) + finished mutex
+ * 
+ * @param p the global data
+ *
+*/
 static void	philo_init_mutex(t_philo_data *p)
 {
 	p->forks = malloc(sizeof(pthread_mutex_t) * p->nphilo);
@@ -25,12 +31,33 @@ static void	philo_init_mutex(t_philo_data *p)
 			philo_exit(1, "Mutex initialization failure\n");
 		++(p->iforks);
 	}
+	if (pthread_mutex_init(&(p->mutex_is_finished), NULL))
+		philo_exit(1, "Mutex initialization failure\n");
+	else
+		p->is_finished_initialized = true;
 }
 
-static void philo_init_one(t_philo_data *pd, t_thread_data *d, unsigned int i)
+/**
+ * Initialize one philosopher, the mutex is inititalized first 
+ * so that if it fails tid will be 0 and the mutex can be destroyed
+ * 
+ * @param pd the global data
+ * @param d the philosopher to initialize
+ * @param i the philosopher id
+ *
+*/
+static void philo_init_one(t_philo_data *pd, t_philosopher *d, unsigned int i)
 {
-	ft_memset(d, 0, sizeof(t_thread_data));
-	d->tid = i;
+	ft_memset(d, 0, sizeof(t_philosopher));
+	if (pthread_mutex_init(&(d->mutex_is_dead.mutex), NULL))
+		philo_exit(1, "Mutex initialization failure\n");
+	else
+		d->mutex_is_dead.is_initialized = true;
+	if (pthread_mutex_init(&(d->neat_mutex.mutex), NULL))
+		philo_exit(1, "Mutex initialization failure\n");
+	else
+		d->neat_mutex.is_initialized = true;
+	d->tid = i + 1;
 	d->philo_data = pd;
 	d->fork_l = pd->forks + i;
 	if (i == pd->nphilo - 1)
@@ -43,14 +70,13 @@ static void	philo_init_philo(t_philo_data *p)
 {
 	unsigned int	i;
 
-	p->philos = malloc(sizeof(t_thread_data) * p->nphilo);
+	p->philos = malloc(sizeof(t_philosopher) * p->nphilo);
 	if (!p->philos)
 		philo_exit(1, "Malloc error\n");
-	ft_memset(p->philos, 0, sizeof(t_thread_data) * p->nphilo);
+	ft_memset(p->philos, 0, sizeof(t_philosopher) * p->nphilo);
 	i = 0;
 	while (i < p->nphilo)
 	{
-		p->philos[i].tid = i;
 		philo_init_one(p, p->philos + i, i);
 		++i;
 	}
