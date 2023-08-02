@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 14:34:06 by pducloux          #+#    #+#             */
-/*   Updated: 2023/07/19 02:20:53 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/08/02 10:57:13 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_thread {
  * @struct s_philo_data
  * @brief	contain philo datas
  * 
- * @var t_philo_data::nphilo	number of philosophers
  * @var t_philo_data::ttd		time to die
  * @var t_philo_data::tte		time to eat
  * @var t_philo_data::tts		time to sleep
@@ -52,9 +51,12 @@ typedef struct s_thread {
  * @var t_philo_data::start		start of the program
  * @var t_philo_data::forks		the forks
  * @var t_philo_data::iforks	number of forks initialized
+ * @var t_philo_data::philos	philosophers storage buffer
+ * @var t_philo_data::nphilo	number of philosophers
+ * @var t_philo_data::threads	thread storage buffer
+ * @var t_philo_data::nthreads	number of threads
 */
 typedef struct s_philo_data {
-	u_int64_t		nphilo;
 	u_int64_t		ttd;
 	u_int64_t		tte;
 	u_int64_t		tts;
@@ -62,8 +64,9 @@ typedef struct s_philo_data {
 	int				finished;
 	pthread_mutex_t	*forks;
 	u_int64_t		iforks;
-	pthread_t		*threads;
 	t_thread_data	*philos;
+	u_int64_t		nphilo;
+	pthread_t		*threads;
 	u_int64_t		nthreads;
 }	t_philo_data;
 
