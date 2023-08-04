@@ -12,18 +12,29 @@
 
 #include "philo.h"
 
+static void	do_actions(t_philosopher *d)
+{
+	if (test_is_dead(d) || philo_is_finished(d->philo_data))
+		return ;
+	do_eat(d);
+	if (test_is_dead(d) || philo_is_finished(d->philo_data))
+		return ;
+	do_sleep(d);
+	if (test_is_dead(d) || philo_is_finished(d->philo_data))
+		return ;
+	do_think(d);
+	if (test_is_dead(d) || philo_is_finished(d->philo_data))
+		return ;
+	if (get_timestamp() - d->last_eat > d->philo_data->ttd)
+		do_die(d);
+}
+
 void	*algo(void *td)
 {
 	t_philosopher	*d;
 
 	d = td;
-	while (!test_is_dead(d))
-	{
-		do_eat(d);
-		do_sleep(d);
-		do_think(d);
-		if (get_timestamp() - d->last_eat > d->philo_data->ttd)
-			do_die(d);
-	}
+	while (!test_is_dead(d) && !philo_is_finished(d->philo_data))
+		do_actions(d);
 	return (NULL);
 }

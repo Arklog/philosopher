@@ -22,7 +22,7 @@
 typedef int8_t	bool;
 
 typedef struct s_mutex {
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	mutex;
 	bool			is_initialized;
 }	t_mutex;
 

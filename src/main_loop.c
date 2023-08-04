@@ -14,11 +14,14 @@ static bool	all_ate(t_philo_data *d)
 		pthread_mutex_unlock(&(d->philos[i].neat_mutex.mutex));
 		++i;
 	}
-	return (!sum);
+	return ((bool)(sum == 0));
 }
 
 void	main_loop(t_philo_data *d)
 {
+	unsigned int	i;
+
+	i = 0;
 	if (d->neat < 0)
 	{
 		while (!philo_is_finished(d))

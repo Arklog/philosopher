@@ -46,7 +46,7 @@ static void	philo_init_mutex(t_philo_data *p)
  * @param i the philosopher id
  *
 */
-static void philo_init_one(t_philo_data *pd, t_philosopher *d, unsigned int i)
+static void	philo_init_one(t_philo_data *pd, t_philosopher *d, unsigned int i)
 {
 	ft_memset(d, 0, sizeof(t_philosopher));
 	if (pthread_mutex_init(&(d->mutex_is_dead.mutex), NULL))
@@ -92,19 +92,19 @@ void	philo_init(int argc, char **argv)
 
 	p = philo();
 	if (argc < 5)
-		philo_exit(1, "Not enought arguments\n");
+		philo_exit(1, "Not enough arguments\n");
 	else if (argc > 6)
 		philo_exit(1, "Too many arguments\n");
-	p->nphilo = ft_strtol(argv[1], &endptr, 10);
+	p->nphilo = ft_strtoi(argv[1], &endptr, 10);
 	if (endptr != argv[1] + ft_strlen(argv[1]))
 		philo_exit(1, "Wrond argument\n");
-	p->ttd = ft_strtol(argv[2], &endptr, 10);
+	p->ttd = ft_strtoi(argv[2], &endptr, 10);
 	if (endptr != argv[2] + ft_strlen(argv[2]))
 		philo_exit(1, "Wrong argument\n");
-	p->tte = ft_strtol(argv[3], &endptr, 10);
+	p->tte = ft_strtoi(argv[3], &endptr, 10);
 	if (endptr != argv[3] + ft_strlen(argv[3]))
 		philo_exit(1, "Wrong argument\n");
-	p->tts = ft_strtol(argv[4], &endptr, 10);
+	p->tts = ft_strtoi(argv[4], &endptr, 10);
 	if (endptr != argv[4] + ft_strlen(argv[4]))
 		philo_exit(1, "Wrong argument\n");
 	philo_init_mutex(p);
