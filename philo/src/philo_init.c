@@ -9,7 +9,7 @@ static void	rev_forks(t_philo_data *d)
 	t_philosopher	*p;
 
 	i = 0;
-	while (i < d->nphilos)
+	while (i < (u_int64_t)d->nphilos)
 	{
 		if (i & 1)
 		{
@@ -18,33 +18,43 @@ static void	rev_forks(t_philo_data *d)
 			p->first = p->second;
 			p->second = tmp;
 		}
+		++i;
 	}
+}
+
+static void	init_one_philo(t_philosopher *p, t_philo_data *d, unsigned int i)
+{
+	p->id = i + 1;
+	if (pthread_mutex_init(&(p->last_eat_mutex.m), NULL))
+		philo_exit(d);
+	else
+		p->last_eat_mutex.i = TRUE;
+	if (pthread_mutex_init(&(p->remaining_eat_mutex.m), NULL))
+		philo_exit(d);
+	else
+		p->remaining_eat_mutex.i = TRUE;
+	p->remaining_eat = d->max_eat;
+	p->first = d->forks + i;
+	if ((int)i == d->nphilos - 1)
+		p->second = d->forks;
+	else
+		p->second = d->forks + i + 1;
+	p->datas = d;
 }
 
 static void	init_philos(t_philo_data *d)
 {
 	unsigned int	i;
-	t_philosopher	*p;
 
 	d->philosophers = malloc(d->nphilos * sizeof(t_philosopher));
 	if (!d->philosophers)
 		philo_exit(d);
-	ft_memset(d->philosophers, 0, sizeof (t_philosopher) * d->nphilos);
+	ft_memset(d->philosophers, 0, sizeof(t_philosopher) * d->nphilos);
 	i = 0;
-	while (i < d->nphilos)
+	while (i < (u_int64_t)d->nphilos)
 	{
-		p = d->philosophers + i;
-		p->id = i + 1;
-		if (!pthread_mutex_init(&(p->last_eat_mutex.m), NULL))
-			philo_exit(d);
-		else
-			p->last_eat_mutex.i = TRUE;
-		p->first = d->forks + i;
-		if (i == d->nphilos - 1)
-			p->second = d->forks;
-		else
-			p->second = d->forks + i + 1;
-		p->datas = d;
+		init_one_philo(d->philosophers + i, d, i);
+		++i;
 	}
 	rev_forks(d);
 }
@@ -53,7 +63,7 @@ static void	init_mutexes(t_philo_data *d)
 {
 	unsigned int	i;
 
-	if (!pthread_mutex_init(&(d->is_finished_mutex.m), NULL))
+	if (pthread_mutex_init(&(d->is_finished_mutex.m), NULL))
 		philo_exit(d);
 	else
 		d->is_finished_mutex.i = TRUE;
@@ -62,12 +72,13 @@ static void	init_mutexes(t_philo_data *d)
 		philo_exit(d);
 	ft_memset(d->forks, 0, d->nphilos * sizeof(t_mutex));
 	i = 0;
-	while (i < d->nphilos)
+	while ((int)i < d->nphilos)
 	{
-		if (!pthread_mutex_init(&(d->forks[i].m), NULL))
+		if (pthread_mutex_init(&(d->forks[i].m), NULL))
 			philo_exit(d);
 		else
 			d->forks[i].i = TRUE;
+		++i;
 	}
 }
 
@@ -79,17 +90,26 @@ void	philo_init(int argc, char **argv, t_philo_data *d)
 	if (argc < 5 || argc > 6)
 		philo_exit(d);
 	d->nphilos = ft_strtoi(argv[1], &endptr, 10);
-	if (endptr != argv[1] + ft_strlen(argv[1]))
+	if (endptr != argv[1] + ft_strlen(argv[1]) || d->nphilos <= 0)
 		philo_exit(d);
 	d->ttd = ft_strtoi(argv[2], &endptr, 10);
-	if (endptr != argv[2] + ft_strlen(argv[2]))
+	if (endptr != argv[2] + ft_strlen(argv[2]) || d->ttd < 0)
 		philo_exit(d);
 	d->tte = ft_strtoi(argv[3], &endptr, 10);
-	if (endptr != argv[3] + ft_strlen(argv[3]))
+	if (endptr != argv[3] + ft_strlen(argv[3]) || d->tte < 0)
 		philo_exit(d);
 	d->tts = ft_strtoi(argv[4], &endptr, 10);
-	if (endptr != argv[4] + ft_strlen(argv[4]))
+	if (endptr != argv[4] + ft_strlen(argv[4]) || d->tts < 0)
 		philo_exit(d);
+	if (argc == 6)
+	{
+		d->max_eat = ft_strtoi(argv[5], &endptr, 10);
+		if (endptr != argv[5] + ft_strlen(argv[5]) || d->max_eat < 0)
+			philo_exit(d);
+	}
+	else
+		d->max_eat = -1;
 	init_mutexes(d);
 	init_philos(d);
+	d->threads = malloc(sizeof(pthread_t) * d->nphilos);
 }
