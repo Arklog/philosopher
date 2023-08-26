@@ -1,0 +1,10 @@
+project(philo LANGUAGES C)
+cmake_minimum_required(VERSION 3.16)
+set(CMAKE_C_STANDARD 99)
+
+include_directories(include ../libft)
+link_directories(../libft)
+link_libraries(ft)
+
+file(GLOB SRC src/*.c)
+add_executable(philo ${SRC})
