@@ -2,7 +2,7 @@
 
 void	philo_algo(t_philo_data *d)
 {
-	while (d->max_eat)
+	while (d->max_eat && !philo_is_dead(d))
 	{
 		philo_eat(d);
 		philo_sleep(d);

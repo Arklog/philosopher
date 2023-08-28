@@ -7,4 +7,4 @@ link_directories(../libft)
 link_libraries(ft)
 
 file(GLOB SRC src/*.c)
-add_executable(philo ${SRC})
+add_executable(philo_bonus ${SRC})

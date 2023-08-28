@@ -8,7 +8,7 @@ int	main(int argc, char **argv)
 	t_philo_data		*child_datas;
 	unsigned int		i;
 
-	child_datas = &datas;
+	child_datas = (t_philo_data *)&datas;
 	philo_parse_args(child_datas, argc, argv);
 	datas.childs = malloc(sizeof(pid_t) * child_datas->nphilos);
 	if (!datas.childs)
@@ -17,8 +17,8 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < child_datas->nphilos)
 	{
-		child_datas->id = i + 1;
-		philo_fork(child_datas);
+		child_datas->id = (int)i + 1;
+		philo_fork(&datas);
 	}
 	monitor_and_kill(&datas);
 }
