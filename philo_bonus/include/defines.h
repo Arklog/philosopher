@@ -1,8 +1,8 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
-#include <pthread.h>
-#include <semaphore.h>
+# include <pthread.h>
+# include <semaphore.h>
 
 typedef struct	s_philo_data
 {

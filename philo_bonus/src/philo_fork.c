@@ -2,7 +2,6 @@
 
 static void	algo(t_philo_data *d)
 {
-	
 }
 
 void	philo_fork(t_philo_data_main *philo_data)
@@ -14,6 +13,6 @@ void	philo_fork(t_philo_data_main *philo_data)
 		philo_exit(&philo_data->_data, 1);
 	if (pid == 0)
 	{
-		
+		algo((t_philo_data *)philo_data)
 	}
 }
