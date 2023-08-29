@@ -2,10 +2,11 @@
 #include "ft_stdlib.h"
 #include "ft_string.h"
 
-void	parse_mandatory(t_philo_data_main *philo_data, int argc, char **argv)
+static void	parse_mandatory(t_philo_data_main *philo_data, int argc, char **argv)
 {
 	char	*endptr;
 
+	(void)argc;
 	philo_data->_data.nphilos = ft_strtoi(argv[1], &endptr, 10);
 	if (endptr != argv[1] + ft_strlen(argv[1]))
 		philo_exit(philo_data, 1);
@@ -18,6 +19,20 @@ void	parse_mandatory(t_philo_data_main *philo_data, int argc, char **argv)
 	philo_data->_data.tts = ft_strtoi(argv[4], &endptr, 10);
 	if (endptr != argv[4] + ft_strlen(argv[4]))
 		philo_exit(philo_data, 1);
+}
+
+static void	check_args(t_philo_data_main *d, int argc)
+{
+	if (d->_data.nphilos <= 0)
+		philo_exit(d, 1);
+	else if (d->_data.ttd < 0)
+		philo_exit(d, 1);
+	else if (d->_data.tte < 0)
+		philo_exit(d, 1);
+	else if (d->_data.tts < 0)
+		philo_exit(d, 1);
+	else if (argc == 6 && d->_data.max_eat < 0)
+		philo_exit(d, 1);
 }
 
 void	philo_parse_args(t_philo_data_main *philo_data, int argc, char **argv)
@@ -35,4 +50,5 @@ void	philo_parse_args(t_philo_data_main *philo_data, int argc, char **argv)
 		if (endptr != argv[5] + ft_strlen(argv[5]))
 			philo_exit(philo_data, 1);
 	}
+	check_args(philo_data, argc);
 }

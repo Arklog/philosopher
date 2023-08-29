@@ -16,7 +16,18 @@ static void	algo(t_philo_data *d)
 	while (!philo_is_dead(d))
 		usleep(5000);
 	philo_die(d);
-	exit(0);
+}
+
+static void	assign_forks(t_philo_data_main *d)
+{
+	t_philo_data	*data;
+
+	data = &(d->_data);
+	data->forks[0] = d->forks[data->id - 1];
+	if (data->id == data->nphilos)
+		data->forks[1] = d->forks[0];
+	else
+		data->forks[1] = d->forks[data->id];
 }
 
 void	philo_fork(t_philo_data_main *d)
@@ -25,9 +36,12 @@ void	philo_fork(t_philo_data_main *d)
 
 	pid = fork();
 	if (pid == -1)
-		philo_exit(&d->_data, 1);
+		philo_exit(d, 1);
 	else if (pid == 0)
+	{
+		assign_forks(d);
 		algo((t_philo_data *)d);
+	}
 	else
 		d->childs[d->_data.id - 1] = pid;
 }

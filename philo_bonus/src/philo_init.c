@@ -22,7 +22,7 @@ static void	init_sems(t_philo_data_main *philo_data)
 
 void	philo_init(t_philo_data_main *philo_data)
 {
-	unsigned int	i;
+	int	i;
 
 	i = philo_data->_data.nphilos;
 	philo_data->childs = malloc(sizeof(pid_t) * i);
@@ -33,4 +33,6 @@ void	philo_init(t_philo_data_main *philo_data)
 		philo_exit(philo_data, 1);
 	ft_memset(philo_data->childs, 0, sizeof(pid_t) * i);
 	ft_memset(philo_data->forks, 0, sizeof(sem_t *) * i);
+	init_sems(philo_data);
+	pthread_mutex_init(&(philo_data->_data.mutex_last_eat), NULL);
 }

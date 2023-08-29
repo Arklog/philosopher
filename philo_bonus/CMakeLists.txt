@@ -8,3 +8,4 @@ link_libraries(ft)
 
 file(GLOB SRC src/*.c)
 add_executable(philo_bonus ${SRC})
+target_compile_options(philo_bonus PRIVATE -Wall -Wextra -Werror -pthread -g)

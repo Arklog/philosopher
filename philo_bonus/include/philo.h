@@ -5,6 +5,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <sys/time.h>
+# include <stdio.h>
 
 /*********************
  * Main functions

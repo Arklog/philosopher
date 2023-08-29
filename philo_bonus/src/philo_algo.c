@@ -1,6 +1,6 @@
 #include "philo.h"
 
-void	philo_algo(t_philo_data *d)
+void	*philo_algo(t_philo_data *d)
 {
 	while (d->max_eat && !philo_is_dead(d))
 	{
@@ -9,4 +9,5 @@ void	philo_algo(t_philo_data *d)
 		philo_think(d);
 		(d->max_eat)--;
 	}
+	return (NULL);
 }
