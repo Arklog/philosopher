@@ -31,7 +31,7 @@ typedef struct	s_philo_data_main
 {
 	t_philo_data	_data;
 	pid_t			*childs;
-	sem_t			*forks;
+	sem_t			**forks;
 }	t_philo_data_main;
 
 #endif

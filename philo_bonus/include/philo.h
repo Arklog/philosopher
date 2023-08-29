@@ -64,7 +64,7 @@ void	philo_die(t_philo_data *d);
 
 void	philo_print(t_philo_data *d, char *str);
 
-bool	philo_is_dead(t_philo_data *d);
+t_bool	philo_is_dead(t_philo_data *d);
 
 /**
  * Monitor the current process and exit it on death
