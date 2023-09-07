@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/07 19:39:24 by pducloux          #+#    #+#             */
+/*   Updated: 2023/09/07 19:41:15 by pducloux         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 #include <sys/types.h>
 
@@ -16,11 +28,12 @@ void	monitor(t_philo_data *d)
 			{
 				set_philo_finished(d);
 				philosopher_die(d->philosophers + i - 1);
-//				return ;
+				return ;
 			}
 			pthread_mutex_lock(&(d->philosophers[i - 1].remaining_eat_mutex.m));
 			eat_sum += d->philosophers[i - 1].remaining_eat;
-			pthread_mutex_unlock(&(d->philosophers[i - 1].remaining_eat_mutex.m));
+			pthread_mutex_unlock(
+				&(d->philosophers[i - 1].remaining_eat_mutex.m));
 		}
 		if (eat_sum == 0)
 			set_philo_finished(d);
