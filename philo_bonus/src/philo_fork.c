@@ -1,33 +1,32 @@
 #include "philo.h"
 
-static void	algo(t_philo_data *d)
+static void	*child_monitor(t_philo_data *d)
 {
-	pthread_t	th;
-	int			i;
-
-	d->last_eat = get_timestamp();
-	i = pthread_create(&th, NULL,
-			(void *(*)(void *))philo_algo, d);
-	if (!i)
-		exit(1);
-	i = pthread_detach(th);
-	if (!i)
-		exit(1);
-	while (!philo_is_dead(d))
+	while (!philo_is_dead(d) && !d->is_finished)
 		usleep(5000);
-	philo_die(d);
+	return (NULL);
 }
 
-static void	assign_forks(t_philo_data_main *d)
+static void	algo(t_philo_data *d)
 {
-	t_philo_data	*data;
+	pthread_t	ths[2];
+	int			tids[2];
 
-	data = &(d->_data);
-	data->forks[0] = d->forks[data->id - 1];
-	if (data->id == data->nphilos)
-		data->forks[1] = d->forks[0];
-	else
-		data->forks[1] = d->forks[data->id];
+	d->is_finished = 0;
+	d->last_eat = get_timestamp();
+	tids[0] = pthread_create(&(ths[0]), NULL,
+			(void *(*)(void *))philo_algo, d);
+	if (tids[0])
+		exit(1);
+	tids[1] = pthread_create(&(ths[1]), NULL,
+			(void *(*)(void *))child_monitor, d);
+	if (tids[1])
+		exit(1);
+	sem_wait(d->sem_finished.sem);
+	d->is_finished = 1;
+	pthread_join(ths[0], NULL);
+	pthread_join(ths[1], NULL);
+	philo_exit_child(d);
 }
 
 void	philo_fork(t_philo_data_main *d)
@@ -38,10 +37,7 @@ void	philo_fork(t_philo_data_main *d)
 	if (pid == -1)
 		philo_exit(d, 1);
 	else if (pid == 0)
-	{
-		assign_forks(d);
 		algo((t_philo_data *)d);
-	}
 	else
 		d->childs[d->_data.id - 1] = pid;
 }

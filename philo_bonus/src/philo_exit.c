@@ -1,21 +1,42 @@
 #include "philo.h"
 
+static void	free_sem(t_sem s, t_bool from_child)
+{
+	if (s.sem != SEM_FAILED && !from_child)
+	{
+		sem_close(s.sem);
+		sem_unlink(s.name);
+	}
+	else if (s.sem != SEM_FAILED)
+	{
+		sem_close(s.sem);
+	}
+}
+
 void	philo_exit(t_philo_data_main *d, int exit_code)
 {
-	int	i;
+	t_philo_data	*dat;
 
-	i = 0;
-	while (i < d->_data.nphilos)
-	{
-		if (d->forks[i] != SEM_FAILED)
-			sem_close(d->forks[i]);
-		++i;
-	}
-	sem_close(d->_data.output_sem);
-	pthread_mutex_destroy(&(d->_data.mutex_last_eat));
+	dat = &(d->_data);
 	if (d->childs)
 		free(d->childs);
-	if (d->forks)
-		free(d->forks);
+	free_sem(dat->output_sem, FALSE);
+	free_sem(dat->forks_prelock, FALSE);
+	free_sem(dat->forks, FALSE);
+	free_sem(dat->sem_finished, FALSE);
 	exit(exit_code);
+}
+
+void	philo_exit_child(t_philo_data *d)
+{
+	t_philo_data_main	*m;
+
+	m = (t_philo_data_main *)d;
+	if (m->childs)
+		free(m->childs);
+	free_sem(d->output_sem, TRUE);
+	free_sem(d->forks_prelock, TRUE);
+	free_sem(d->forks, TRUE);
+	free_sem(d->sem_finished, TRUE);
+	exit(0);
 }

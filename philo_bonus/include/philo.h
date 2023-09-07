@@ -36,6 +36,8 @@ void	philo_init(t_philo_data_main *philo_data);
  */
 void	philo_exit(t_philo_data_main *philo_data, int exit_code);
 
+void	philo_exit_child(t_philo_data *d);
+
 /**
  * Start a child
  *
@@ -55,6 +57,10 @@ void	monitor_and_kill(t_philo_data_main *philo_data);
 *********************/
 
 void	*philo_algo(t_philo_data *d);
+
+void	lock_forks(t_philo_data *d);
+
+void	unlock_forks(t_philo_data *d);
 
 void	philo_eat(t_philo_data *d);
 
