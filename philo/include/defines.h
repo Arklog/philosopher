@@ -71,6 +71,7 @@ typedef struct s_philo_data {
 	int				tte;
 	int				tts;
 	int				max_eat;
+	u_int64_t		start_time;
 	t_philosopher	*philosophers;
 	t_mutex			*forks;
 	t_mutex			is_finished_mutex;

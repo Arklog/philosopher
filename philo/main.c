@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	t_philo_data	d;
 
 	philo_init(argc, argv, &d);
+	d.start_time = gettimestamp();
 	i = 0;
 	while (i < (u_int64_t)d.nphilos)
 	{
