@@ -21,8 +21,13 @@ static void	eat(t_philosopher *p)
 	p->last_eat = gettimestamp();
 	pthread_mutex_unlock(&(p->last_eat_mutex.m));
 	printf("%lu %d is eating\n", p->last_eat - p->datas->start_time, p->id);
+	pthread_mutex_lock(&(p->remaining_eat_mutex.m));
 	p->remaining_eat--;
+	pthread_mutex_unlock(&(p->remaining_eat_mutex.m));
 	usleep(datas->tte * 1000);
+	pthread_mutex_lock(&(p->last_eat_mutex.m));
+	p->last_eat = gettimestamp();
+	pthread_mutex_unlock(&(p->last_eat_mutex.m));
 }
 
 void	philosopher_eat(t_philosopher *p)
@@ -38,8 +43,12 @@ void	philosopher_eat(t_philosopher *p)
 		return ;
 	}
 	pthread_mutex_lock(&(p->first->m));
+	printf("%lu %d has taken a fork\n", gettimestamp() - datas->start_time,
+		   p->id);
 	pthread_mutex_lock(&(p->second->m));
-	if (!is_philo_finished(datas))
+	printf("%lu %d has taken a fork\n", gettimestamp() - datas->start_time,
+		   p->id);
+	if (!datas->is_finished)
 		eat(p);
 	pthread_mutex_unlock(&(p->second->m));
 	pthread_mutex_unlock(&(p->first->m));

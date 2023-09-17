@@ -45,6 +45,7 @@ void	philo_exit(t_philo_data *d)
 	unsigned int	i;
 
 	i = 0;
+	free_threads(d);
 	while (i < (u_int64_t)d->nphilos && d->philosophers)
 	{
 		if (d->philosophers[i].last_eat_mutex.i)
@@ -53,7 +54,7 @@ void	philo_exit(t_philo_data *d)
 			pthread_mutex_destroy(&(d->philosophers[i].remaining_eat_mutex.m));
 		++i;
 	}
-	free_threads(d);
+//	free_threads(d);
 	free_forks(d);
 	free(d->philosophers);
 	exit(0);
