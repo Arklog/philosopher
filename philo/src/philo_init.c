@@ -92,6 +92,10 @@ static void	init_mutexes(t_philo_data *d)
 			d->forks[i].i = TRUE;
 		++i;
 	}
+	if (pthread_mutex_init(&(d->max_eat_mutex.m), NULL))
+		philo_exit(d);
+	else
+		d->max_eat_mutex.i = TRUE;
 }
 
 void	philo_init(int argc, char **argv, t_philo_data *d)

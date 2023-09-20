@@ -70,6 +70,7 @@ typedef struct s_philo_data {
 	int				ttd;
 	int				tte;
 	int				tts;
+	t_mutex			max_eat_mutex;
 	int				max_eat;
 	u_int64_t		start_time;
 	t_philosopher	*philosophers;

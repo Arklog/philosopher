@@ -6,3 +6,5 @@ CMakeCache.txt
 Makefile.idea
 cmake-build-debug
 *.o
+.idea
+philo/tmp.log

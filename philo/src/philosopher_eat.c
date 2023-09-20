@@ -23,6 +23,12 @@ static void	eat(t_philosopher *p)
 	printf("%lu %d is eating\n", p->last_eat - p->datas->start_time, p->id);
 	pthread_mutex_lock(&(p->remaining_eat_mutex.m));
 	p->remaining_eat--;
+	if (!p->remaining_eat)
+	{
+		pthread_mutex_lock(&(datas->max_eat_mutex.m));
+		p->datas->max_eat--;
+		pthread_mutex_unlock(&(datas->max_eat_mutex.m));
+	}
 	pthread_mutex_unlock(&(p->remaining_eat_mutex.m));
 	usleep(datas->tte * 1000);
 	pthread_mutex_lock(&(p->last_eat_mutex.m));
