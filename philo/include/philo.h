@@ -41,4 +41,12 @@ void		set_philo_finished(t_philo_data *d);
 
 void		monitor(t_philo_data *d);
 
+void		print_take_fork(t_philosopher *p);
+
+void		print_eat(t_philosopher *p);
+
+void		print_sleep(t_philosopher *p);
+
+void		print_think(t_philosopher *p);
+
 #endif

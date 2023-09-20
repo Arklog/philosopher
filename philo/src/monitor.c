@@ -16,7 +16,7 @@
 void	monitor(t_philo_data *d)
 {
 	int		i;
-	int64_t	remaining_eat;
+	int64_t	still_eating;
 
 	while (!is_philo_finished(d))
 	{
@@ -25,15 +25,14 @@ void	monitor(t_philo_data *d)
 		{
 			if (is_philosopher_dead(d->philosophers + i++))
 			{
-				set_philo_finished(d);
 				philosopher_die(d->philosophers + i - 1);
 				return ;
 			}
 		}
-		pthread_mutex_lock(&(d->max_eat_mutex.m));
-		remaining_eat = d->max_eat;
-		pthread_mutex_unlock(&(d->max_eat_mutex.m));
-		if (!remaining_eat)
+		pthread_mutex_lock(&(d->still_eating_mutex.m));
+		still_eating = d->still_eating;
+		pthread_mutex_unlock(&(d->still_eating_mutex.m));
+		if (!still_eating)
 			set_philo_finished(d);
 		usleep(5000);
 	}

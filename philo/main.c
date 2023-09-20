@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 
 	philo_init(argc, argv, &d);
 	d.start_time = gettimestamp();
+	d.still_eating = d.nphilos;
 	i = 0;
 	while (i < (u_int64_t)d.nphilos)
 	{
