@@ -17,7 +17,6 @@ void	*algo(void *arg)
 	t_philosopher	*p;
 
 	p = (t_philosopher *)arg;
-	p->last_eat = gettimestamp();
 	while (!is_philo_finished(p->datas))
 	{
 		philosopher_eat(p);

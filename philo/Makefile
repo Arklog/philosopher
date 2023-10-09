@@ -11,6 +11,7 @@ SRC		:=	./src/philosopher_think.c \
 			./src/algo.c \
 			./src/monitor.c \
 			./src/is_philosopher_dead.c \
+			./src/printing.c \
 			./main.c
 OBJ		:= ${SRC:.c=.o}
 
@@ -23,7 +24,7 @@ CC		:= cc
 all: ${NAME} ;
 
 ${NAME}: ${LIBFT} ${OBJ}
-	${CC} ${CFLAGS} ${OBJ} -o ${NAME}
+	${CC} ${CFLAGS} ${OBJ} ${LINK} -o ${NAME}
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $< -o $@

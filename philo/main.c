@@ -13,12 +13,27 @@
 #include "init.h"
 #include "philo.h"
 
+static int check_vals(t_philo_data d)
+{
+	if (d.nphilos < 1)
+		return (FALSE);
+	else if (d.ttd < 0)
+		return (FALSE);
+	else if (d.tte < 0)
+		return (FALSE);
+	else if (d.tts < 0)
+		return (FALSE);
+	return (TRUE);
+}
+
 int	main(int argc, char **argv)
 {
 	unsigned int	i;
 	t_philo_data	d;
 
 	philo_init(argc, argv, &d);
+	if (!check_vals(d))
+		philo_exit(&d);
 	d.start_time = gettimestamp();
 	d.still_eating = d.nphilos;
 	i = 0;

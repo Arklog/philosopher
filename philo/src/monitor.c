@@ -34,6 +34,6 @@ void	monitor(t_philo_data *d)
 		pthread_mutex_unlock(&(d->still_eating_mutex.m));
 		if (!still_eating)
 			set_philo_finished(d);
-		usleep(5000);
+		usleep(1000);
 	}
 }

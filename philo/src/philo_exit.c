@@ -54,7 +54,8 @@ void	philo_exit(t_philo_data *d)
 			pthread_mutex_destroy(&(d->philosophers[i].remaining_eat_mutex.m));
 		++i;
 	}
-//	free_threads(d);
+	if (d->is_finished_mutex.i)
+		pthread_mutex_destroy(&(d->is_finished_mutex.m));
 	free_forks(d);
 	free(d->philosophers);
 	exit(0);
