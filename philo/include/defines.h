@@ -15,6 +15,7 @@
 
 # include <sys/types.h>
 # include <pthread.h>
+# include "libft.h"
 
 # ifndef TRUE
 #  define TRUE	1
