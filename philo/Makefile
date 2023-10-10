@@ -12,6 +12,7 @@ SRC		:=	./src/philosopher_think.c \
 			./src/monitor.c \
 			./src/is_philosopher_dead.c \
 			./src/printing.c \
+			./src/philo_parse_args.c \
 			./main.c
 OBJ		:= ${SRC:.c=.o}
 

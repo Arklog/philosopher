@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:39:41 by pducloux          #+#    #+#             */
-/*   Updated: 2023/09/07 19:39:41 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:36:47 by pierre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,20 +103,7 @@ void	philo_init(int argc, char **argv, t_philo_data *d)
 	char	*endptr;
 
 	ft_memset(d, 0, sizeof(t_philo_data));
-	if (argc < 5 || argc > 6)
-		philo_exit(d);
-	d->nphilos = ft_strtoi(argv[1], &endptr, 10);
-	if (endptr != argv[1] + ft_strlen(argv[1]) || d->nphilos <= 0)
-		philo_exit(d);
-	d->ttd = ft_strtoi(argv[2], &endptr, 10);
-	if (endptr != argv[2] + ft_strlen(argv[2]) || d->ttd < 0)
-		philo_exit(d);
-	d->tte = ft_strtoi(argv[3], &endptr, 10);
-	if (endptr != argv[3] + ft_strlen(argv[3]) || d->tte < 0)
-		philo_exit(d);
-	d->tts = ft_strtoi(argv[4], &endptr, 10);
-	if (endptr != argv[4] + ft_strlen(argv[4]) || d->tts < 0)
-		philo_exit(d);
+	philo_parse_args(argc, argv, d);
 	if (argc == 6)
 	{
 		d->max_eat = ft_strtoi(argv[5], &endptr, 10);
