@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:39:41 by pducloux          #+#    #+#             */
-/*   Updated: 2023/10/10 18:36:47 by pierre           ###   ########.fr       */
+/*   Updated: 2023/10/11 05:20:14 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	init_philos(t_philo_data *d)
 		++i;
 	}
 	rev_forks(d);
+	// rev_forks(d);
 }
 
 static void	init_mutexes(t_philo_data *d)

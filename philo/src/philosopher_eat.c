@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:39:47 by pducloux          #+#    #+#             */
-/*   Updated: 2023/09/07 19:39:48 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/11 05:12:14 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	eat(t_philosopher *p)
 	}
 	pthread_mutex_unlock(&(p->remaining_eat_mutex.m));
 	usleep(datas->tte * 1000);
-	print_text(p, "finished eating");
+	// print_text(p, "finished eating");
 	// pthread_mutex_lock(&(p->last_eat_mutex.m));
 	// p->last_eat = gettimestamp();
 	// pthread_mutex_unlock(&(p->last_eat_mutex.m));
