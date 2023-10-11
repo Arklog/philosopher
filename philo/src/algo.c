@@ -15,7 +15,7 @@
 void	*algo(void *arg)
 {
 	t_philosopher	*p;
-	
+
 	p = (t_philosopher *)arg;
 	if (p->id % 2)
 		usleep(p->datas->tte * 1000);

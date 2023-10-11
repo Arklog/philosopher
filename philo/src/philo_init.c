@@ -69,7 +69,6 @@ static void	init_philos(t_philo_data *d)
 		++i;
 	}
 	rev_forks(d);
-	// rev_forks(d);
 }
 
 static void	init_mutexes(t_philo_data *d)
