@@ -39,6 +39,8 @@ clean:
 fclean: clean
 	rm -rf ${NAME}
 
-re: | fclean all
+re:
+	${MAKE} fclean
+	${MAKE} all
 
 .PHONY	:= all clean fclean re ${NAME}

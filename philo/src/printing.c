@@ -6,13 +6,13 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 12:41:42 by pierre            #+#    #+#             */
-/*   Updated: 2023/10/11 02:32:26 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/11 02:38:48 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	print_text(t_philosopher *p, char *text)
+void	print_text(t_philosopher *p, char *text)
 {
 	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 
