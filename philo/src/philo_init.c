@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:39:41 by pducloux          #+#    #+#             */
-/*   Updated: 2023/10/11 05:20:14 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:17:41 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ static void	init_mutexes(t_philo_data *d)
 			d->forks[i].i = TRUE;
 		++i;
 	}
-	if (pthread_mutex_init(&(d->still_eating_mutex.m), NULL))
+	if (!philo_init_mutex(&(d->still_eating_mutex)))
 		philo_exit(d);
-	else
-		d->still_eating_mutex.i = TRUE;
+	if (!philo_init_mutex(&(d->thread_init_mutex)))
+		philo_exit(d);
 }
 
 void	philo_init(int argc, char **argv, t_philo_data *d)

@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:39:38 by pducloux          #+#    #+#             */
-/*   Updated: 2023/09/07 19:39:38 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:17:39 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	philo_exit(t_philo_data *d)
 	}
 	if (d->is_finished_mutex.i)
 		pthread_mutex_destroy(&(d->is_finished_mutex.m));
+	if (d->thread_init_mutex.i)
+		pthread_mutex_destroy(&(d->thread_init_mutex.m));
 	free_forks(d);
 	free(d->philosophers);
 	exit(0);

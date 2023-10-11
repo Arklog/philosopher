@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:37:42 by pducloux          #+#    #+#             */
-/*   Updated: 2023/10/10 18:35:25 by pierre           ###   ########.fr       */
+/*   Updated: 2023/10/11 16:18:00 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ int	main(int argc, char **argv)
 	d.start_time = gettimestamp();
 	d.still_eating = d.nphilos;
 	i = 0;
+	pthread_mutex_lock(&(d.thread_init_mutex.m));
 	while (i < (u_int64_t)d.nphilos)
 	{
 		d.philosophers[i].last_eat = gettimestamp();
 		pthread_create(d.threads + i, NULL, &algo, d.philosophers + i);
 		++i;
 	}
+	pthread_mutex_unlock(&(d.thread_init_mutex.m));
 	monitor(&d);
 	philo_exit(&d);
 	return (0);

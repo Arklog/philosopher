@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:38:25 by pducloux          #+#    #+#             */
-/*   Updated: 2023/09/07 19:38:26 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:08:00 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct s_philo_data {
 	t_mutex			is_finished_mutex;
 	t_bool			is_finished;
 	pthread_t		*threads;
+	t_mutex			thread_init_mutex;
+	int				thread_init;
 }	t_philo_data;
 
 #endif
