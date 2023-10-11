@@ -15,6 +15,6 @@
 void	philosopher_die(t_philosopher *p)
 {
 	set_philo_finished(p->datas);
-	print_text(p, "died\n");
+	print_text(p, "died");
 	// printf("%lu %d died\n", gettimestamp() - p->datas->start_time, p->id);
 }

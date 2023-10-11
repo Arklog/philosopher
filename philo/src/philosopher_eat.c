@@ -31,9 +31,10 @@ static void	eat(t_philosopher *p)
 	}
 	pthread_mutex_unlock(&(p->remaining_eat_mutex.m));
 	usleep(datas->tte * 1000);
-	pthread_mutex_lock(&(p->last_eat_mutex.m));
-	p->last_eat = gettimestamp();
-	pthread_mutex_unlock(&(p->last_eat_mutex.m));
+	print_text(p, "finished eating");
+	// pthread_mutex_lock(&(p->last_eat_mutex.m));
+	// p->last_eat = gettimestamp();
+	// pthread_mutex_unlock(&(p->last_eat_mutex.m));
 }
 
 void	philosopher_eat(t_philosopher *p)
@@ -43,7 +44,7 @@ void	philosopher_eat(t_philosopher *p)
 	datas = p->datas;
 	if (p->first == p->second)
 	{
-		print_eat(p);
+		print_take_fork(p);
 		usleep(datas->ttd * 1000 + 1000);
 		return ;
 	}
