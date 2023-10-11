@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:38:16 by pducloux          #+#    #+#             */
-/*   Updated: 2023/09/07 19:38:17 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/11 02:20:44 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,13 @@ void		print_eat(t_philosopher *p);
 void		print_sleep(t_philosopher *p);
 
 void		print_think(t_philosopher *p);
+
+/**
+ * @brief Usleep with 
+ * 
+ * @param usecond 
+ * @param d 
+ */
+void		safe_usleep(u_int64_t usecond, t_philo_data *d);
 
 #endif
