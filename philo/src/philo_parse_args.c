@@ -32,4 +32,12 @@ void	philo_parse_args(int argc, char **argv, t_philo_data *d)
 	d->tts = ft_strtoi(argv[4], &endptr, 10);
 	if (endptr != argv[4] + ft_strlen(argv[4]) || d->tts < 0)
 		philo_exit(d);
+	if (argc == 6)
+	{
+		d->max_eat = ft_strtoi(argv[5], &endptr, 10);
+		if (endptr != argv[5] + ft_strlen(argv[5]) || d->max_eat < 0)
+			philo_exit(d);
+	}
+	else
+		d->max_eat = -1;
 }
