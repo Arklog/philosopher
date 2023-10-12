@@ -17,16 +17,25 @@ int	main(int argc, char **argv)
 {
 	unsigned int	i;
 	t_philo_data	d;
+	int				isuccess;
 
 	philo_init(argc, argv, &d);
 	d.start_time = gettimestamp();
 	d.still_eating = d.nphilos;
-	i = 0;
 	pthread_mutex_lock(&(d.thread_init_mutex.m));
-	while (i < (u_int64_t)d.nphilos)
+	i = 0;
+	d.thread_init = 0;
+	isuccess = 1;
+	while (i < (u_int64_t)d.nphilos && isuccess)
 	{
 		d.philosophers[i].last_eat = gettimestamp();
-		pthread_create(d.threads + i, NULL, &algo, d.philosophers + i);
+		if (pthread_create(d.threads + i, NULL, &algo, d.philosophers + i))
+		{
+			isuccess = 0;
+			set_philo_finished(&d);
+		}
+		else
+			d.thread_init++;
 		++i;
 	}
 	pthread_mutex_unlock(&(d.thread_init_mutex.m));

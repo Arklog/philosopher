@@ -20,7 +20,7 @@ void	*algo(void *arg)
 	p = (t_philosopher *)arg;
 	d = p->datas;
 	pthread_mutex_lock(&(d->thread_init_mutex.m));
-	if (!d->thread_init)
+	if (d->thread_init != d->nphilos)
 	{
 		pthread_mutex_unlock(&(d->thread_init_mutex.m));
 		return (NULL);

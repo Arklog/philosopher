@@ -36,6 +36,6 @@ void	philo_exit(t_philo_data *d);
  * 
  * @return 1 on success, 0 on failure
  */
-int			philo_init_mutex(t_mutex *m);
+int		philo_init_mutex(t_mutex *m);
 
 #endif

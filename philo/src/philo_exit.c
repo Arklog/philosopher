@@ -29,11 +29,15 @@ static void	free_forks(t_philo_data *d)
 static void	free_threads(t_philo_data *d)
 {
 	unsigned int	i;
+	unsigned int	max;
 
 	if (!d->threads)
 		return ;
+	pthread_mutex_lock(&(d->thread_init_mutex.m));
+	max = (unsigned int)d->thread_init;
+	pthread_mutex_unlock(&(d->thread_init_mutex.m));
 	i = 0;
-	while (i < (u_int64_t)d->nphilos && d->threads)
+	while (i < max)
 	{
 		pthread_join(d->threads[i++], NULL);
 	}
