@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:37:42 by pducloux          #+#    #+#             */
-/*   Updated: 2023/10/12 19:44:20 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:24:26 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	start_threads(t_philo_data *data)
 		if (pthread_create(d.threads + i, NULL, &algo, d.philosophers + i))
 		{
 			isuccess = 0;
-			set_philo_finished(&d);
+			set_philo_finished(data);
 		}
 		else
 			data->thread_init++;
