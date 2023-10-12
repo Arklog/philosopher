@@ -6,7 +6,7 @@
 /*   By: pducloux <pducloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 19:39:41 by pducloux          #+#    #+#             */
-/*   Updated: 2023/10/11 16:17:41 by pducloux         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:43:24 by pducloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ static void	rev_forks(t_philo_data *d)
 	}
 }
 
-static void	init_one_philo(t_philosopher *p, t_philo_data *d, unsigned int i)
+static int	init_one_philo(t_philosopher *p, t_philo_data *d, unsigned int i)
 {
 	p->id = i + 1;
 	if (pthread_mutex_init(&(p->last_eat_mutex.m), NULL))
-		philo_exit(d);
+		return (0);
 	else
 		p->last_eat_mutex.i = TRUE;
 	if (pthread_mutex_init(&(p->remaining_eat_mutex.m), NULL))
-		philo_exit(d);
+		return (0);
 	else
 		p->remaining_eat_mutex.i = TRUE;
 	p->remaining_eat = d->max_eat;
@@ -52,15 +52,16 @@ static void	init_one_philo(t_philosopher *p, t_philo_data *d, unsigned int i)
 	else
 		p->second = d->forks + i + 1;
 	p->datas = d;
+	return (1);
 }
 
-static void	init_philos(t_philo_data *d)
+static int	init_philos(t_philo_data *d)
 {
 	unsigned int	i;
 
 	d->philosophers = malloc(d->nphilos * sizeof(t_philosopher));
 	if (!d->philosophers)
-		philo_exit(d);
+		return (0);
 	ft_memset(d->philosophers, 0, sizeof(t_philosopher) * d->nphilos);
 	i = 0;
 	while (i < (u_int64_t)d->nphilos)
@@ -69,50 +70,52 @@ static void	init_philos(t_philo_data *d)
 		++i;
 	}
 	rev_forks(d);
+	return (1);
 }
 
-static void	init_mutexes(t_philo_data *d)
+static int	init_mutexes(t_philo_data *d)
 {
 	unsigned int	i;
 
-	if (pthread_mutex_init(&(d->is_finished_mutex.m), NULL))
-		philo_exit(d);
-	else
-		d->is_finished_mutex.i = TRUE;
+	if (!philo_init_mutex(&(d->is_finished_mutex)))
+		return (0);
 	d->forks = malloc(sizeof(t_mutex) * d->nphilos);
 	if (!d->forks)
-		philo_exit(d);
+		return (0);
 	ft_memset(d->forks, 0, d->nphilos * sizeof(t_mutex));
 	i = 0;
 	while ((int)i < d->nphilos)
 	{
-		if (pthread_mutex_init(&(d->forks[i].m), NULL))
-			philo_exit(d);
-		else
-			d->forks[i].i = TRUE;
+		if (!philo_init_mutex(&(d->forks[i])))
+			return (0);
 		++i;
 	}
 	if (!philo_init_mutex(&(d->still_eating_mutex)))
-		philo_exit(d);
+		return (0);
 	if (!philo_init_mutex(&(d->thread_init_mutex)))
-		philo_exit(d);
+		return (0);
+	return (1);
 }
 
-void	philo_init(int argc, char **argv, t_philo_data *d)
+int	philo_init(int argc, char **argv, t_philo_data *d)
 {
 	char	*endptr;
 
 	ft_memset(d, 0, sizeof(t_philo_data));
-	philo_parse_args(argc, argv, d);
+	if (!philo_parse_args(argc, argv, d))
+		return (0);
 	if (argc == 6)
 	{
 		d->max_eat = ft_strtoi(argv[5], &endptr, 10);
 		if (endptr != argv[5] + ft_strlen(argv[5]) || d->max_eat < 0)
-			philo_exit(d);
+			return (0);
 	}
 	else
 		d->max_eat = -1;
-	init_mutexes(d);
-	init_philos(d);
+	if (!init_mutexes(d))
+		return (0);
+	if (!init_philos(d))
+		return (0);
 	d->threads = malloc(sizeof(pthread_t) * d->nphilos);
+	return (1);
 }
