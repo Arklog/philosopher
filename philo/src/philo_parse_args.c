@@ -46,7 +46,7 @@ int	philo_parse_args(int argc, char **argv, t_philo_data *d)
 	if (argc == 6)
 	{
 		d->max_eat = ft_strtoi(argv[5], &endptr, 10);
-		if (endptr != argv[5] + ft_strlen(argv[5]) || d->max_eat < 0)
+		if (endptr != argv[5] + ft_strlen(argv[5]) || d->max_eat <= 0)
 			return (0);
 	}
 	else
